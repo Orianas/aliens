@@ -1,0 +1,58 @@
+{
+  com.badlogic.gdx.graphics.g2d.BitmapFont: {
+    normaltext: {
+      file: futureThin25.fnt
+    },
+    titletext: {
+      file: futureThin50.fnt
+    }
+  },
+  com.badlogic.gdx.graphics.Color: {
+    red: {
+      a: 1,
+      b: 0,
+      g: 0,
+      r: 1
+    },
+    blue: {
+      a: 1,
+      b: 1,
+      g: 0,
+      r: 0
+    },
+    green: {
+      a: 1,
+      b: 0,
+      g: 1,
+      r: 0
+    },
+    white: {
+      a: 1,
+      b: 1,
+      g: 1,
+      r: 1
+    },
+    black: {
+      a: 0,
+      b: 0,
+      g: 0,
+      r: 0
+    }
+  },
+  com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+    default: {
+      font: normaltext,
+      fontColor: white
+    },
+    normal-text: {
+      font: normaltext,
+      fontColor: white
+    },
+    title-text: {
+      font: titletext,
+      fontColor: white
+    }
+  },
+  com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+  }
+}
