@@ -56,5 +56,7 @@ public class MainMenuScreen extends AbstractScreen {
     public void dispose() {
         super.dispose();
         txtrBg.dispose();
+        txtrNewGame.dispose();
+        txtrExit.dispose();
     }
 }
