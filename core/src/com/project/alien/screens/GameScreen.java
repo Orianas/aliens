@@ -23,7 +23,7 @@ public class GameScreen extends AbstractScreen {
     private Label currScore;
     private Label currResources;
     private Label.LabelStyle textStyle;
-    BitmapFont HUDFont;
+    private BitmapFont HUDFont;
 
     public GameScreen() {
         super();
@@ -57,6 +57,7 @@ public class GameScreen extends AbstractScreen {
         RESOURCES = 0;
     }
 
+    @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 1, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -69,7 +70,14 @@ public class GameScreen extends AbstractScreen {
         HUD.draw();
     }
 
-    public void updateHUD(float delta) {
+    @Override
+    public void dispose() {
+        super.dispose();
+        txtrHUDBG.dispose();
+        HUDFont.dispose();
+    }
+
+    private void updateHUD(float delta) {
         HUDTIMER += delta;
         RESOURCETIMER += delta;
         SCORETIMER += delta;
