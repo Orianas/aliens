@@ -59,6 +59,8 @@ public class GameScreen extends AbstractScreen {
 
         super.act(delta);
         super.draw();
+        act();
+        draw();
         HUD.act();
         HUD.draw();
     }

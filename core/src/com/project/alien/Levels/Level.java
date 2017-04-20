@@ -9,29 +9,25 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.project.alien.Missiles.BigMissile;
 import com.project.alien.Towers.SingleMissileTower;
 
-/**
- * Created by cade on 4/20/17.
- */
 public class Level {
 
-    Texture[] towerPlots;
-    Texture[][] trailPlots;
+    private Texture[] towerPlots;
+    private Texture[][] trailPlots;
     //Zombie zombie1;
-    float elapsedTime = 0;
+    private float elapsedTime = 0;
 
 //	Tower[] currentTowers = new Tower[5];
 //	Texture[] grassPlots;
 
 
-
-    SpriteBatch batch;
+    private SpriteBatch batch;
     Texture img;
     //Texture tower1;
-    BitmapFont font;
-    public SingleMissileTower tower1;
+    private BitmapFont font;
+    private SingleMissileTower tower1;
 
-    SingleMissileTower tower2;
-    BigMissile missile1;
+    private SingleMissileTower tower2;
+    private BigMissile missile1;
 
 
 
@@ -47,13 +43,13 @@ public class Level {
 
         towerPlots = new Texture[5];
         for (int i = 0; i < 5; i++) {
-            towerPlots[i] = new Texture("img/Tower/towerDefense_tile086.png");
+            towerPlots[i] = new Texture("img/Tiles/towerDefense_tile086.png");
 
         }
         trailPlots = new Texture[20][20];
         for(int i = 0; i < 20; i++) {
             for (int j = 0; j < 20; j++) {
-                trailPlots[i][j] = new Texture("img/Tower/towerDefense_tile093.png");
+                trailPlots[i][j] = new Texture("img/Tiles/towerDefense_tile093.png");
             }
         }
 //        zombie1 = new FatZombie();
@@ -73,7 +69,7 @@ public class Level {
 
     }
 
-    boolean key1Pressed = false;
+    public boolean key1Pressed = false;
 
     public void render () {
         Gdx.gl.glClearColor(0, 1, 0, 0);
