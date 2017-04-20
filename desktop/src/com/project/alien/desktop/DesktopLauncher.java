@@ -8,8 +8,6 @@ import com.project.alien.utils.Consts;
 public class DesktopLauncher {
     public static void main(String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.width = Consts.GAME_WIDTH;
-        config.height = Consts.GAME_HEIGHT;
         new LwjglApplication(new ProjectAlien(), config);
     }
 }
