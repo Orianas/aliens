@@ -9,4 +9,13 @@ public class Consts {
     public static final float RESOURCE_GAIN_TIME = 3.0f;
     public static final int SCORE_GAIN = 1;
     public static final float SCORE_GAIN_TIME = 1.5f;
+
+    public static final int TOWER_PLOT_1_Y = 50;
+    public static final int TOWER_PLOT_2_Y = 120;
+    public static final int TOWER_PLOT_3_Y = 190;
+    public static final int TOWER_PLOT_4_Y = 260;
+    public static final int TOWER_PLOT_5_Y = 330;
+
+
+
 }

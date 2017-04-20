@@ -18,7 +18,7 @@ public class MainMenuScreen extends AbstractScreen {
 
     public MainMenuScreen() {
         super();
-        txtrBg = new Texture(Gdx.files.internal("img/MainMenuBG.png"));
+        txtrBg = new Texture(Gdx.files.internal("img/mainMenuBG.png"));
         txtrNewGame = new Texture(Gdx.files.internal("img/newGame.png"));
         txtrExit = new Texture(Gdx.files.internal("img/exit.png"));
     }

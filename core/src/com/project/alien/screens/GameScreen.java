@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.project.alien.Levels.Level;
 import com.project.alien.utils.Consts;
 
 public class GameScreen extends AbstractScreen {
@@ -24,6 +25,9 @@ public class GameScreen extends AbstractScreen {
     private Label currResources;
     private Label.LabelStyle textStyle;
     private BitmapFont HUDFont;
+
+
+    private Level level1;
 
     public GameScreen() {
         super();
@@ -41,6 +45,9 @@ public class GameScreen extends AbstractScreen {
         currScore = new Label("0", textStyle);
         currScore.setBounds(1043.0f, 17.0f, 50.0f, 50.0f);
         currScore.setFontScale(1.5f, 1.5f);
+
+
+        level1 = new Level();
     }
 
     @Override
@@ -49,6 +56,13 @@ public class GameScreen extends AbstractScreen {
         HUD.addActor(HudBG);
         HUD.addActor(currResources);
         HUD.addActor(currScore);
+
+
+        level1.create();
+
+
+
+
 
         HUDTIMER = 0;
         RESOURCETIMER = 0;
@@ -61,6 +75,8 @@ public class GameScreen extends AbstractScreen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 1, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        level1.render();
 
         updateHUD(delta);
 
