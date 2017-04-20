@@ -1,7 +1,6 @@
 package com.project.alien.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -35,7 +34,62 @@ public class GameScreen extends AbstractScreen {
 
     public GameScreen() {
         super();
+        HUDConstructor();
 
+    }
+
+
+    @Override
+    public void buildStage() {
+        HUDBuildStage();
+    }
+
+    @Override
+    public void render(float delta) {
+        Gdx.gl.glClearColor(0, 1, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        updateHUD(delta);
+
+        super.act(delta);
+        super.draw();
+        HUD.act();
+        HUD.draw();
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        txtrHUDBG.dispose();
+        HUDFont.dispose();
+        txtrCost.dispose();
+    }
+
+    private void updateHUD(float delta) {
+        HUDTIMER += delta;
+        RESOURCETIMER += delta;
+        SCORETIMER += delta;
+        if (HUDTIMER > 0.25f) {
+            HUDTIMER -= 0.25f;
+
+            if (RESOURCETIMER > Consts.RESOURCE_GAIN_TIME) {
+                RESOURCETIMER -= Consts.RESOURCE_GAIN_TIME;
+                RESOURCES += Consts.RESOURCE_GAIN_AMT;
+            }
+
+            if (SCORETIMER > Consts.SCORE_GAIN_TIME) {
+                SCORETIMER -= Consts.SCORE_GAIN_TIME;
+                SCORE += Consts.SCORE_GAIN_AMT;
+
+                // Stage Multiplier function
+                // SCORE += Consts.RESOURCE_GAIN_AMT * STAGEMULTIPLIER;
+            }
+            currScore.setText(Integer.toString(SCORE));
+            currResources.setText(Integer.toString(RESOURCES));
+        }
+    }
+
+    private void HUDConstructor() {
         txtrHUDBG = new Texture("img/HudBG.png");
         txtrCost = new Texture("img/costBubble.png");
         HUD = new Stage(new FitViewport(1440.0f, 1080.0f, new OrthographicCamera()));
@@ -71,8 +125,7 @@ public class GameScreen extends AbstractScreen {
         }
     }
 
-    @Override
-    public void buildStage() {
+    private void HUDBuildStage() {
         Image HudBG = new Image(txtrHUDBG);
         Image CostBubble = new Image(txtrCost);
         HUD.addActor(HudBG);
@@ -91,49 +144,5 @@ public class GameScreen extends AbstractScreen {
         SCORETIMER = 0;
         SCORE = 0;
         RESOURCES = 0;
-    }
-
-    @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0, 1, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        updateHUD(delta);
-
-        super.act(delta);
-        super.draw();
-        HUD.act();
-        HUD.draw();
-    }
-
-    @Override
-    public void dispose() {
-        super.dispose();
-        txtrHUDBG.dispose();
-        HUDFont.dispose();
-    }
-
-    private void updateHUD(float delta) {
-        HUDTIMER += delta;
-        RESOURCETIMER += delta;
-        SCORETIMER += delta;
-        if (HUDTIMER > 0.25f) {
-            HUDTIMER -= 0.25f;
-
-            if (RESOURCETIMER > Consts.RESOURCE_GAIN_TIME) {
-                RESOURCETIMER -= Consts.RESOURCE_GAIN_TIME;
-                RESOURCES += Consts.RESOURCE_GAIN_AMT;
-            }
-
-            if (SCORETIMER > Consts.SCORE_GAIN_TIME) {
-                SCORETIMER -= Consts.SCORE_GAIN_TIME;
-                SCORE += Consts.SCORE_GAIN_AMT;
-
-                // Stage Multiplier function
-                // SCORE += Consts.RESOURCE_GAIN_AMT * STAGEMULTIPLIER;
-            }
-            currScore.setText(Integer.toString(SCORE));
-            currResources.setText(Integer.toString(RESOURCES));
-        }
     }
 }
