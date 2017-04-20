@@ -2,9 +2,6 @@ package com.project.alien.Towers;
 
 import com.badlogic.gdx.graphics.Texture;
 
-/**
- * Created by cade on 4/6/17.
- */
 public abstract class Tower {
     Texture tower;
     int xLoc;
@@ -16,7 +13,6 @@ public abstract class Tower {
         this.xLoc = 0;
         this.yLoc = 0;
     }
-
 
     public Tower(String imgLoc, int xLoc, int yLoc){
         this.tower = new Texture(imgLoc);

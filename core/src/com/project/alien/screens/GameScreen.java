@@ -33,7 +33,6 @@ public class GameScreen extends AbstractScreen {
     private BitmapFont HUDFont;
     private Texture txtrCost;
 
-
     private Level level1;
 
     public GameScreen() {

@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.project.alien.zombies;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
