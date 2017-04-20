@@ -40,6 +40,7 @@ public class GameScreen extends AbstractScreen {
         super();
         HUDConstructor();
         level1 = new Level();
+        level1.create();
     }
 
     @Override
