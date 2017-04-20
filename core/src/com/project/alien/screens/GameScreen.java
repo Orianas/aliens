@@ -89,9 +89,9 @@ public class GameScreen extends AbstractScreen {
                 RESOURCES += Consts.RESOURCE_GAIN_AMT;
             }
 
-            if (SCORETIMER > Consts.RESOURCE_GAIN_TIME) {
+            if (SCORETIMER > Consts.SCORE_GAIN_TIME) {
                 SCORETIMER -= Consts.SCORE_GAIN_TIME;
-                SCORE += Consts.RESOURCE_GAIN_AMT;
+                SCORE += Consts.SCORE_GAIN_AMT;
 
                 // Stage Multiplier function
                 // SCORE += Consts.RESOURCE_GAIN_AMT * STAGEMULTIPLIER;
