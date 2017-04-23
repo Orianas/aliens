@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.project.alien.zombies;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -14,15 +14,8 @@ public class FatZombie extends Zombie {
     private int currentRightAttackFrame = 0;
     private int currentLeftAttackFrame = 0;
     private int currentAppearFrame = 0;
+    private int leftAttackRepeat = 0;
     private float lastElapsedTime = 0f;
-    private boolean movingRight = false;
-    private boolean movingLeft = false;
-    private boolean movingUp = false;
-    private boolean movingDown = false;
-    private boolean dead = false;
-    private boolean right_attack = false;
-    private boolean left_attack = false;
-    private boolean appear = false;
     private Sprite[] deadSprites;
     private Sprite[] rightAttackSprites;
     private Sprite[] leftAttackSprites;
@@ -71,11 +64,11 @@ public class FatZombie extends Zombie {
         }
     }
     public void draw(SpriteBatch batch, float elapsedTime){
-        if(!dead && !right_attack && !left_attack && !appear)
+        if(!isDead() && !isRightAttack() && !isLeftAttack() && !isAppearing())
             batch.draw(getAnimation().getKeyFrame(elapsedTime, true), getX(), getY());
         //draw the zombie die
-        else if(dead){
-            //the very first time draw() is called to draw zombie die
+        else if(isDead()){
+            updateDeadTime(elapsedTime);
             if(lastElapsedTime == 0f) {
                 lastElapsedTime = elapsedTime;
             }
@@ -88,7 +81,7 @@ public class FatZombie extends Zombie {
             deadSprites[currentDeadFrame].draw(batch);
         }
         //draw the zombie attack right
-        else if(right_attack){
+        else if(isRightAttack()){
             if(lastElapsedTime == 0f) {
                 lastElapsedTime = elapsedTime;
             }
@@ -100,20 +93,25 @@ public class FatZombie extends Zombie {
             rightAttackSprites[currentRightAttackFrame].setPosition(getX(), getY());
             rightAttackSprites[currentRightAttackFrame].draw(batch);
         }
-        else if(left_attack){
+        else if(isLeftAttack()){
             if(lastElapsedTime == 0f) {
                 lastElapsedTime = elapsedTime;
             }
             else if(elapsedTime - lastElapsedTime > getDuration()){
                 if(currentLeftAttackFrame != LEFT_ATTACK_FRAME_NUM - 1)
                     currentLeftAttackFrame++;
+                else if(leftAttackRepeat > 110) {
+                    currentLeftAttackFrame = 0;
+                    leftAttackRepeat = 0;
+                }
                 lastElapsedTime = elapsedTime;
             }
             leftAttackSprites[currentLeftAttackFrame].setPosition(getX(), getY());
             leftAttackSprites[currentLeftAttackFrame].draw(batch);
         }
         //draw the zombie appear
-        else if(appear){
+        else if(isAppearing()){
+            updateAppearTime(elapsedTime);
             if(lastElapsedTime == 0f) {
                 lastElapsedTime = elapsedTime;
             }
@@ -127,67 +125,88 @@ public class FatZombie extends Zombie {
         }
     }
     public void appear(){
-        if(dead || right_attack || left_attack)
+        if(isDead() || isRightAttack() || isLeftAttack())
             resetActions();
-        appear = true;
-        movingUp = movingLeft = movingRight = movingDown = false;
+        setAppearing();
+        resetMovingLeft();
+        resetMovingRight();
+        resetMovingUp();
+        resetMovingDown();
     }
     public void stop(){}
     public void moveRight() {
-        if (!movingRight) {
+        if (!isMovingRight()) {
             setAtlasAnimation(new TextureAtlas(Gdx.files.internal("fatzombie-data/fatzom-texture-walk-right.atlas")));
-            movingRight = true;
-            movingDown = movingLeft = movingUp = false;
+            setMovingRight();
             resetActions();
+            resetMovingLeft();
+            resetMovingUp();
+            resetMovingDown();
         }
     }
     public void moveLeft(){
-        if (!movingLeft) {
+        if (!isMovingLeft()) {
             setAtlasAnimation(new TextureAtlas(Gdx.files.internal("fatzombie-data/fatzom-texture-walk-left.atlas")));
-            movingLeft = true;
-            movingDown = movingRight = movingUp = false;
+            setMovingLeft();
             resetActions();
+            resetMovingRight();
+            resetMovingUp();
+            resetMovingDown();
         }
     }
     public void moveUp(){
-        if(!movingUp){
+        if(!isMovingUp()){
             setAtlasAnimation(new TextureAtlas(Gdx.files.internal("fatzombie-data/fatzom-texture-walk-up.atlas")));
-            movingUp = true;
-            movingDown = movingRight = movingLeft = false;
+            setMovingUp();
             resetActions();
+            resetMovingRight();
+            resetMovingLeft();
+            resetMovingDown();
         }
     }
     public void moveDown() {
-        if (!movingDown) {
+        if (!isMovingDown()) {
             setAtlasAnimation(new TextureAtlas(Gdx.files.internal("fatzombie-data/fatzom-texture-walk-down.atlas")));
-            movingDown = true;
-            movingUp = movingLeft = movingRight = false;
+            setMovingDown();
             resetActions();
+            resetMovingRight();
+            resetMovingLeft();
+            resetMovingUp();
         }
     }
     public void die(){
-        if(right_attack || appear)
+        if(isRightAttack() || isAppearing() || isLeftAttack())
             resetActions();
-        dead = true;
-        movingUp = movingLeft = movingRight = movingDown = false;
+        setDead();
+        resetMovingRight();
+        resetMovingLeft();
+        resetMovingUp();
+        resetMovingDown();
     }
     public void rightAttack(){
-        if(dead || appear || left_attack)
+        if(isDead() || isAppearing() || isLeftAttack())
             resetActions();
-        right_attack = true;
-        movingUp = movingLeft = movingRight = movingDown = false;
+        setRightAttack();
+        resetMovingRight();
+        resetMovingLeft();
+        resetMovingUp();
+        resetMovingDown();
     }
     public void leftAttack(){
-        if(dead || appear || right_attack)
+        if(isDead() || isAppearing() || isRightAttack())
             resetActions();
-        left_attack = true;
-        movingUp = movingLeft = movingRight = movingDown = false;
+        setLeftAttack();
+        resetMovingRight();
+        resetMovingLeft();
+        resetMovingUp();
+        resetMovingDown();
+        leftAttackRepeat++;
     }
     private void resetActions(){
-        dead = false;
-        right_attack = false;
-        left_attack = false;
-        appear = false;
+        resetDead();
+        resetRightAttack();
+        resetLeftAttack();
+        resetAppearing();
         currentDeadFrame = 0;
         currentRightAttackFrame = 0;
         currentLeftAttackFrame = 0;
