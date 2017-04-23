@@ -2,51 +2,31 @@ package com.project.alien.Missiles;
 
 import com.badlogic.gdx.graphics.Texture;
 
-import java.util.Timer;
-import java.util.concurrent.TimeUnit;
-
 /**
  * Created by cade on 4/6/17.
  */
 public class BigMissile extends Missile {
-
-    int tipOfMiss;
-
-
     public BigMissile(String imgLoc, int xLoc, int yLoc){
-        this.missImg = new Texture(imgLoc);
-        this.xLoc = xLoc;
-        this.yLoc = yLoc;
-
-        this.ogXLoc = xLoc;
-        this.ogYLoc = yLoc;
-        this.missWidth = 60;
+        setImg(new Texture(imgLoc));
+        setMissWidth(60);
+        setXLoc(xLoc);
+        setYLoc(yLoc);
+        setOGX(xLoc);
+        setOGY(yLoc);
     }
-
     public void reload(){
-
-        //this.missImg = new Texture("img/Missile/towerDefense_tile252.png");
-        visible = true;
-        this.xLoc = ogXLoc;
-        this.yLoc = ogYLoc;
+        setVisible();
+        setXLoc(getOGX());
+        setYLoc(getOGY());
+        setMissTipLoc();
     }
-
-    public int getMissTipLoc(){
-        return tipOfMiss;
-    }
-
     @Override
     public void fly() {
-        this.setXLoc(this.getXLoc() + 3);
-        tipOfMiss = missWidth + xLoc;
-
+        setXLoc(getXLoc() + 7);
+        setMissTipLoc();
     }
-
     @Override
     public void explode() {
-        this.missImg = new Texture("img/Explosions/towerDefense_tile298.png");
-
-//        this.missImg = new Texture("Tower Defense (top-down)/PNG/Zombies!/towerDefense_tile021.png");
-
+        setImg(new Texture("img/Explosions/towerDefense_tile298.png"));
     }
 }

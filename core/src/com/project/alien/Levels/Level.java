@@ -20,7 +20,7 @@ public class Level {
     private SingleMissileTower tower2;
     private BigMissile missile1;
     private ZombieManager enemy;
-    public boolean key1Pressed = false;
+    private boolean key1Pressed = false;
     public void create () {
         batch = new SpriteBatch();
         tower1 = new SingleMissileTower("img/Tower/towerDefense_tile205.png", 0, 50);
@@ -49,34 +49,12 @@ public class Level {
         drawTrails();
         batch.draw(tower1.getImg(), tower1.getXLoc(), tower1.getYLoc());   //Drawing double-missiles
         batch.draw(tower2.getImg(), tower2.getXLoc(), tower2.getYLoc());   //Drawing the tower under the double-missiles
+        keyControlTemp();
+        enemy.collision(missile1);
         enemy.zombieMarch();
-        if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
-            key1Pressed = true;
-        }
-        if (key1Pressed) {
-            if (missile1.getXLoc() < 600) {
-                //missile1.explode();
-                missile1.fly();
-//                if(zombie1.getX() > missile1.getXLoc() && zombie1.getX() < missile1.getMissTipLoc()){
-//                    zombie1.die();
-//                }
-
-            } else {
-                //missile1.createCratr();
-//				missile1.reload();
-                missile1.visible = false;
-                key1Pressed = false;
-            }
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.NUM_0)) {
-            if (!key1Pressed)
-                missile1.reload();
-        }
-        if(missile1.visible) {
+        if(missile1.isVisible())
             batch.draw(missile1.getImg(), missile1.getXLoc(), missile1.getYLoc());
-        }
         enemy.drawZombies(batch, elapsedTime);
-        //missile1.reload();
         batch.end();
     }
     private void drawTowers(){
@@ -99,7 +77,30 @@ public class Level {
             }
         }
     }
-    public void dispose () {
+    //temporal key event controller. It is temporal. Needs to be encapsulated
+    private void keyControlTemp(){
+        if(Gdx.input.isKeyPressed(Input.Keys.NUM_0)) {
+            if (!missile1.isVisible()) {
+                missile1.reload();
+                missile1.setVisible();
+                key1Pressed = false;
+            }
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.NUM_1))
+            key1Pressed = true;
+        if(key1Pressed) {
+            if(!missile1.isBlewUp()) {
+                missile1.fly();
+                if(60 * 11 < missile1.getXLoc())
+                    missile1.resetVisible();
+            } else {
+                missile1.resetBlewUp();
+                missile1.reload();
+                key1Pressed = false;
+            }
+        }
+    }
+    public void dispose(){
         batch.dispose();
     }
 }

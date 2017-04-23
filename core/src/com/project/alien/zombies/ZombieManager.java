@@ -2,6 +2,8 @@ package com.project.alien.zombies;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.project.alien.Missiles.Missile;
+
 import java.util.*;
 /**
  * Created by ohkih on 4/20/2017.
@@ -81,6 +83,22 @@ public class ZombieManager {
                 }
                 else if(zombies[i][j].isLeftAttack())
                     zombies[i][j].leftAttack();
+            }
+        }
+    }
+    public void collision(Missile missile){
+        for(int i = 0; i < trailNumber; i++) {
+            int zombie_num = getZombieNumPerRow(zombies[i]);
+            for (int j = 0; j < zombie_num; j++){
+                if(zombies[i][j].getX() + TRAIL_TILE_WIDTH / 2 <= missile.getMissTipLoc()
+                && zombies[i][j].getX() + TRAIL_TILE_WIDTH / 2 >= missile.getXLoc()
+                && zombies[i][j].getY() + TRAIL_TILE_HEIGHT / 2 >= missile.getYLoc()
+                && zombies[i][j].getY() + TRAIL_TILE_HEIGHT / 2 <= missile.getYLoc() + TRAIL_TILE_HEIGHT
+                && !zombies[i][j].isDead()) {
+                    zombies[i][j].die();
+                    missile.setBlewUp();
+                    return;
+                }
             }
         }
     }

@@ -6,52 +6,35 @@ import com.badlogic.gdx.graphics.Texture;
  * Created by cade on 4/6/17.
  */
 public abstract class Tower {
-    Texture tower;
-    int xLoc;
-    int yLoc;
-
-
+    private Texture tower;
+    private int xLoc;
+    private int yLoc;
     public Tower(){
-        this.tower = null;
-        this.xLoc = 0;
-        this.yLoc = 0;
+        tower = null;
+        xLoc = 0;
+        yLoc = 0;
     }
-
-
     public Tower(String imgLoc, int xLoc, int yLoc){
-        this.tower = new Texture(imgLoc);
-        this.xLoc = xLoc;
-        this.yLoc = yLoc;
+        tower = new Texture(imgLoc);
+        xLoc = xLoc;
+        yLoc = yLoc;
     }
-
     public Texture getImg(){
-        return this.tower;
+        return tower;
     }
-
+    public void setImg(Texture t){ tower = t; }
     public int getXLoc(){
-        return this.xLoc;
+        return xLoc;
     }
-
     public int getYLoc(){
-        return this.yLoc;
+        return yLoc;
     }
-
     public void setxLoc(int newXLoc){
-        this.xLoc = newXLoc;
+        xLoc = newXLoc;
     }
-
     public void setyLoc(int newYLoc){
-        this.yLoc = newYLoc;
+        yLoc = newYLoc;
     }
-
     public abstract void towerShoot();
     public abstract void towerDestroyed();
-
-
-
-
-
-
-
-
 }
