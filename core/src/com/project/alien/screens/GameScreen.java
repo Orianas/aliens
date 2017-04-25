@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.project.alien.Levels.Level;
+import com.project.alien.Levels.TiledLevel;
 import com.project.alien.utils.Consts;
 
 import static com.badlogic.gdx.graphics.Color.BLACK;
@@ -34,12 +34,12 @@ public class GameScreen extends AbstractScreen {
     private Texture txtrCost;
 
 
-    private Level level1;
+    private TiledLevel level1;
 
     public GameScreen() {
         super();
         HUDConstructor();
-        level1 = new Level();
+        level1 = new TiledLevel("maps/level1.tmx");
     }
 
     @Override
