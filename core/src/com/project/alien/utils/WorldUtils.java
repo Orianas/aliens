@@ -8,3 +8,4 @@ public class WorldUtils {
         return new World(Consts.WORLD_GRAVITY, true);
     }
 }
+

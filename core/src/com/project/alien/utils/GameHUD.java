@@ -14,7 +14,7 @@ import static com.badlogic.gdx.graphics.Color.WHITE;
 
 public class GameHUD {
 
-    public Stage HUD;
+    private Stage HUD;
 
     private Texture txtrHUDBG;
     private float HUDTIMER;
@@ -117,4 +117,21 @@ public class GameHUD {
         HUDFont.dispose();
         txtrCost.dispose();
     }
+
+    public void act(float delta) {
+        HUD.act(delta);
+    }
+
+    public void draw() {
+        HUD.draw();
+    }
+
+    public void addScore(int score) {
+        SCORE += score;
+    }
+
+    public void addResources(int resources) {
+        RESOURCES += resources;
+    }
+
 }
