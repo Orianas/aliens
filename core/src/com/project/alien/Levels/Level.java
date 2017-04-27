@@ -47,8 +47,6 @@ public class Level {
         }
         drawTowers();
         drawTrails();
-        batch.draw(tower1.getImg(), tower1.getXLoc(), tower1.getYLoc());   //Drawing double-missiles
-        batch.draw(tower2.getImg(), tower2.getXLoc(), tower2.getYLoc());   //Drawing the tower under the double-missiles
         keyControlTemp();
         enemy.collision(missile1);
         enemy.zombieMarch();
@@ -64,6 +62,10 @@ public class Level {
             startY += 70;
             batch.draw(towerPlots[i], startX, startY);
         }
+        /* Temporally disabled for the sake of the final presentation
+        batch.draw(tower1.getImg(), tower1.getXLoc(), tower1.getYLoc());   //Drawing double-missiles
+        batch.draw(tower2.getImg(), tower2.getXLoc(), tower2.getYLoc());   //Drawing the tower under the double-missiles
+        */
     }
     private void drawTrails(){
         int startX;
@@ -88,11 +90,22 @@ public class Level {
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_1))
             key1Pressed = true;
+        if(Gdx.input.isKeyJustPressed(Input.Keys.UP) && !key1Pressed && missile1.getYLoc() <= 300){
+            missile1.setYLoc(missile1.getYLoc() + 70);
+            missile1.setOGY(missile1.getYLoc());
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN) && !key1Pressed && 80 < missile1.getYLoc()){
+            missile1.setYLoc(missile1.getYLoc() - 70);
+            missile1.setOGY(missile1.getYLoc());
+        }
         if(key1Pressed) {
             if(!missile1.isBlewUp()) {
                 missile1.fly();
-                if(60 * 11 < missile1.getXLoc())
-                    missile1.resetVisible();
+                if(60 * 11 < missile1.getXLoc()) {
+                    //missile1.resetVisible();
+                    missile1.reload();
+                    key1Pressed = false;
+                }
             } else {
                 missile1.resetBlewUp();
                 missile1.reload();
