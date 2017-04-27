@@ -4,16 +4,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.project.alien.screens.GameScreen;
 
 public class PauseMenu extends GameHUD {
 
     private Stage stage;
+    private GameScreen gameScreen;
 
     private Label lblNewGame;
     private Label lblResumeGame;
@@ -35,7 +39,9 @@ public class PauseMenu extends GameHUD {
 
     }
 
-    public void buildStage() {
+    public void buildStage(final GameScreen gameScreen) {
+        this.gameScreen = gameScreen;
+
         Image background = new Image(txtrBG);
         ImageButton btnNewGame = UIFactory.createButton(txtrButton);
         ImageButton btnResumeGame = UIFactory.createButton(txtrButton);
@@ -54,11 +60,21 @@ public class PauseMenu extends GameHUD {
 
         btnNewGame.addListener(UIFactory.createListener(ScreenEnum.MAIN_MENU));
 
+        btnResumeGame.addListener(
+                new InputListener() {
+                    @Override
+                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                        gameScreen.togglePause();
+                        return false;
+                    }
+                });
+
         stage.addActor(background);
         stage.addActor(btnNewGame);
         stage.addActor(btnResumeGame);
         stage.addActor(lblNewGame);
         stage.addActor(lblResumeGame);
+
     }
 
     public void act(float delta) {
@@ -72,6 +88,10 @@ public class PauseMenu extends GameHUD {
     public void dispose() {
         txtrButton.dispose();
         txtrBG.dispose();
+    }
+
+    public Stage getStage() {
+        return stage;
     }
 
 }

@@ -14,6 +14,7 @@ public class GameScreen extends AbstractScreen {
     private GameHUD HUD;
     private PauseMenu pauseMenu;
     private State currState;
+    private InputMultiplexer inputMultiplexer = new InputMultiplexer();
 
 
     private TiledLevel level1;
@@ -30,20 +31,17 @@ public class GameScreen extends AbstractScreen {
     public void show() {
         /* Add all stages that process input here*/
 
-        InputMultiplexer inputMultiplexer = new InputMultiplexer();
-
         // HUD input
         inputMultiplexer.addProcessor(this);
         // Game map/tiles input
         inputMultiplexer.addProcessor(level1.getStage());
-
-        Gdx.input.setInputProcessor(inputMultiplexer);
+        inputMultiplexer.addProcessor(pauseMenu.getStage());
     }
 
     @Override
     public void buildStage() {
         HUD.buildStage();
-        pauseMenu.buildStage();
+        pauseMenu.buildStage(this);
         Gdx.input.setCatchBackKey(true);
     }
 
@@ -61,11 +59,12 @@ public class GameScreen extends AbstractScreen {
                 super.act(delta);
                 act(delta);
                 HUD.act(delta);
-
+                Gdx.input.setInputProcessor(inputMultiplexer);
                 break;
             case Paused:
                 pauseMenu.act(delta);
                 pauseMenu.draw();
+                Gdx.input.setInputProcessor(pauseMenu.getStage());
                 break;
             default:
         }
@@ -82,10 +81,14 @@ public class GameScreen extends AbstractScreen {
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE)
-            if (currState == State.Paused)
-                currState = State.Running;
-            else
-                currState = State.Paused;
+            togglePause();
         return false;
+    }
+
+    public void togglePause() {
+        if (currState == State.Paused)
+            currState = State.Running;
+        else
+            currState = State.Paused;
     }
 }
