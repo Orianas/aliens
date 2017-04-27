@@ -85,7 +85,7 @@ public class GameOverScreen extends AbstractScreen{
         EXIT.setAlignment(Align.center);
 
 
-        txtUserName.setMessageText("test");
+        txtUserName.setMessageText("Enter Name");
         txtUserName.setPosition(midX - 300f, midY - 100f);
         txtUserName.setAlignment(Align.center);
         txtUserName.setSize(600f,100f);
@@ -106,9 +106,10 @@ public class GameOverScreen extends AbstractScreen{
                     @Override
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                         userName = txtUserName.getText();
-                        if(userName != ""){
+                        if(!userName.equals("")){
                             DBManager db = new DBManager();
                             db.addToUsers(userName, 1500, 35);
+                            db.getUsers();
                         }
                         ScreenManager.getInstance().showScreen(MAIN_MENU);
                         return false;
