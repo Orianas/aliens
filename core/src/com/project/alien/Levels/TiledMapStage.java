@@ -47,6 +47,9 @@ public class TiledMapStage extends Stage {
                 cellActor.setScreenX(x * tileWidth);
                 cellActor.setScreenY(y * tileHeight);
 
+                cellActor.x = x;
+                cellActor.y = y;
+
                 //cellActor.setDebug(true);
 
                 // add the new actor bound to cell to the Stage

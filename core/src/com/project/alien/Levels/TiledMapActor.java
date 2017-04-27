@@ -9,9 +9,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.project.alien.Missiles.BigMissile;
 import com.project.alien.utils.Consts;
 
 /**
@@ -22,9 +24,13 @@ public class TiledMapActor extends Actor {
     private TiledMap tiledMap;
     private TiledMapTileLayer tiledLayer;
     private TiledMapTileLayer.Cell cell;
+    private TiledMapTileSet tileSet;
 
     private float screenX;
     private float screenY;
+
+    public int x;
+    public int y;
 
 
     private boolean highlighted = false;
@@ -80,22 +86,23 @@ public class TiledMapActor extends Actor {
 
     public void toggleWallTile() {
 
-        if(this.cell == null) {
-
-            TextureRegion textureRegion = this.tiledMap.getTileSets().getTileSet(0).getTile(134).getTextureRegion();
-            StaticTiledMapTile wallTile = new StaticTiledMapTile(textureRegion);
+        if(placeable && (this.cell == null || this.cell.getTile() == null)) {
 
             this.cell = new TiledMapTileLayer.Cell();
-            this.cell.setTile(wallTile);
+            this.cell.setTile(tiledMap.getTileSets().getTile(181));
+            this.tiledLayer.setCell(this.x,this.y,this.cell);
 
             placeable = false;
 
-        } else {
+        }
+
+        /*
+        else {
 
             this.cell.setTile(null);
             placeable = true;
         }
-
+        */
     }
 
     public void setHoverSprite(Sprite hoverSprite) {
