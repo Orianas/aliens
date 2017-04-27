@@ -40,7 +40,7 @@ public class GameScreen extends AbstractScreen {
         super();
         HUDConstructor();
         level1 = new Level();
-        level1.create();
+        level1.create(this);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class GameScreen extends AbstractScreen {
         Gdx.gl.glClearColor(0, 1, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        level1.render();
+        level1.render(this);
 
         updateHUD(delta);
 
@@ -152,5 +152,17 @@ public class GameScreen extends AbstractScreen {
         SCORETIMER = 0;
         SCORE = 0;
         RESOURCES = 0;
+    }
+
+    public void addScore(int score){
+        SCORE += score;
+    }
+
+    public void addResource(int resource){
+        RESOURCES += resource;
+    }
+
+    public int getResouces(){
+        return RESOURCES;
     }
 }

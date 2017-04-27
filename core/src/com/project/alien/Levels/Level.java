@@ -7,9 +7,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.project.alien.Missiles.BigMissile;
 import com.project.alien.Towers.SingleMissileTower;
+import com.project.alien.screens.AbstractScreen;
+import com.project.alien.screens.GameScreen;
 import com.project.alien.zombies.ZombieManager;
 
 public class Level {
+    private GameScreen screen;
     private Texture[] towerPlots;
     private Texture[][] trailPlots;
     private float elapsedTime = 0f;
@@ -21,7 +24,8 @@ public class Level {
     private BigMissile missile1;
     private ZombieManager enemy;
     private boolean key1Pressed = false;
-    public void create () {
+    public void create (GameScreen gameScreen){
+        screen = gameScreen;
         batch = new SpriteBatch();
         tower1 = new SingleMissileTower("img/Tower/towerDefense_tile205.png", 0, 50);
         tower2 = new SingleMissileTower("img/Tower/towerDefense_tile229.png", 0, 120);
@@ -36,7 +40,7 @@ public class Level {
         }
         enemy = new ZombieManager(5);
     }
-    public void render () {
+    public void render (AbstractScreen screen) {
         Gdx.gl.glClearColor(0, 1, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
@@ -107,6 +111,7 @@ public class Level {
                     key1Pressed = false;
                 }
             } else {
+                screen.addScore(5);
                 missile1.resetBlewUp();
                 missile1.reload();
                 key1Pressed = false;
