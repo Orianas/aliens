@@ -126,4 +126,12 @@ public class GameHUD {
         HUD.draw();
     }
 
+    public void addScore(int score) {
+        SCORE += score;
+    }
+
+    public void addResources(int resources) {
+        RESOURCES += resources;
+    }
+
 }
