@@ -10,6 +10,8 @@ public class Consts {
     public static final int SCORE_GAIN_AMT = 1;
     public static final float SCORE_GAIN_TIME = 1.5f;
 
+    public static final float UNIT_SCALE = 0.5f;
+
     public static final int TOWER_PLOT_1_Y = 50;
     public static final int TOWER_PLOT_2_Y = 120;
     public static final int TOWER_PLOT_3_Y = 190;

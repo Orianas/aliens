@@ -31,8 +31,10 @@ public class Level {
 
 
 
-    public void create () {     //buildstage
+    public Level () {     //buildstage
         batch = new SpriteBatch();
+        batch.begin();
+
         tower1 = new SingleMissileTower("img/Tower/towerDefense_tile205.png", 0, 50);
 
         tower2 = new SingleMissileTower("img/Tower/towerDefense_tile229.png", 0, 120);
@@ -65,7 +67,7 @@ public class Level {
 //			grassPlots[i] = new Texture("Tower Defense (top-down)/PNG/Default size/towerDefense_tile157.png");
 //		}
 
-
+        batch.end();
 
     }
 
@@ -74,6 +76,7 @@ public class Level {
     public void render () {
         Gdx.gl.glClearColor(0, 1, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         batch.begin();
         //batch.draw(img, 150, 50);
         elapsedTime += Gdx.graphics.getDeltaTime();
