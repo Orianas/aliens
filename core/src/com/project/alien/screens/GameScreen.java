@@ -16,7 +16,6 @@ public class GameScreen extends AbstractScreen {
     private State currState;
     private InputMultiplexer inputMultiplexer = new InputMultiplexer();
 
-
     private TiledLevel level1;
 
     public GameScreen() {
