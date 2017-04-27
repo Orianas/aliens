@@ -7,7 +7,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.project.alien.Levels.TiledLevel;
 import com.project.alien.utils.GameHUD;
 import com.project.alien.utils.PauseMenu;
+import com.project.alien.utils.ScreenManager;
 import com.project.alien.utils.State;
+
+import static com.project.alien.utils.ScreenEnum.GAME_OVER;
 
 public class GameScreen extends AbstractScreen {
 
@@ -16,7 +19,7 @@ public class GameScreen extends AbstractScreen {
     private State currState;
     private InputMultiplexer inputMultiplexer = new InputMultiplexer();
 
-
+    private boolean GameOver = true;
     private TiledLevel level1;
 
     public GameScreen() {
@@ -29,6 +32,9 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void show() {
+        if(GameOver){
+            ScreenManager.getInstance().showScreen(GAME_OVER);
+        }
         /* Add all stages that process input here*/
 
         // HUD input

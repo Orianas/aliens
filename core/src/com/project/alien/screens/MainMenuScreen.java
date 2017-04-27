@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.utils.Align;
+import com.project.alien.DBManager.DBManager;
 import com.project.alien.utils.ScreenEnum;
 import com.project.alien.utils.UIFactory;
 
@@ -25,6 +26,14 @@ public class MainMenuScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
+
+//        DBManager db;
+//        db = new DBManager();
+//        db.addToUsers("Cade", 1500,25);
+//        db.addToUsers("Amber", 2500,25);
+//        db.addToUsers("Jay", 3500,25);
+//        db.deleteFromUsers("Cade");
+//        db.getUsers();
 
         Image bg = new Image(txtrBg);
         addActor(bg);

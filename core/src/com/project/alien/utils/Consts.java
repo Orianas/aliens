@@ -18,4 +18,6 @@ public class Consts {
     public static final int TOWER_PLOT_4_Y = 260;
     public static final int TOWER_PLOT_5_Y = 330;
 
+    public static final String URL = "jdbc:sqlite:towergame.sqlite";
+
 }
