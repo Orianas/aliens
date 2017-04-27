@@ -18,6 +18,7 @@ public class TiledMapClickListener extends ClickListener {
     public void clicked(InputEvent event, float x, float y) {
 
         System.out.println(actor.toString() + " was clicked.");
+        actor.toggleWallTile();
     }
 
     @Override

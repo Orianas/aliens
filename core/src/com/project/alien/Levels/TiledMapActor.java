@@ -5,8 +5,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.project.alien.utils.Consts;
@@ -73,6 +76,26 @@ public class TiledMapActor extends Actor {
             else
                 notPlaceableSprite.draw(batch, parentAlpha);
         }
+    }
+
+    public void toggleWallTile() {
+
+        if(this.cell == null) {
+
+            TextureRegion textureRegion = this.tiledMap.getTileSets().getTileSet(0).getTile(134).getTextureRegion();
+            StaticTiledMapTile wallTile = new StaticTiledMapTile(textureRegion);
+
+            this.cell = new TiledMapTileLayer.Cell();
+            this.cell.setTile(wallTile);
+
+            placeable = false;
+
+        } else {
+
+            this.cell.setTile(null);
+            placeable = true;
+        }
+
     }
 
     public void setHoverSprite(Sprite hoverSprite) {
