@@ -6,6 +6,7 @@ public abstract class Tower {
     Texture tower;
     int xLoc;
     int yLoc;
+    private int cost;
 
 
     public Tower(){
@@ -20,8 +21,17 @@ public abstract class Tower {
         this.yLoc = yLoc;
     }
 
+
     public Texture getImg(){
         return this.tower;
+    }
+
+    public int getCost() {
+        return this.cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
     public int getXLoc(){

@@ -16,6 +16,11 @@ public class SingleMissileTower extends Tower{
 
     }
 
+    public SingleMissileTower(String imgLoc, int cost) {
+        this.tower = new Texture(imgLoc);
+        this.setCost(cost);
+    }
+
 
     @Override
     public void towerDestroyed() {
