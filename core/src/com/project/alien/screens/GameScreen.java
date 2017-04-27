@@ -23,8 +23,6 @@ public class GameScreen extends AbstractScreen {
         currState = State.Running;
         HUD = new GameHUD();
         pauseMenu = new PauseMenu();
-        level1 = new Level();
-        level1.create();
         level1 = new TiledLevel("maps/level_1.tmx");
     }
 
