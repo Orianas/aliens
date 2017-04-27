@@ -4,9 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.project.alien.utils.Consts;
 
 /**
  * Created by john on 4/24/2017.
@@ -17,19 +20,99 @@ public class TiledMapActor extends Actor {
     private TiledMapTileLayer tiledLayer;
     private TiledMapTileLayer.Cell cell;
 
-    private Sprite hoverImg = new Sprite(new Texture("maps/tile_hover.png"));
+    private float screenX;
+    private float screenY;
+
+
+    private boolean highlighted = false;
+    private boolean placeable;
+
+    private int tileId;
+
+    private Texture hoverImage, notPlaceableImage;
+    private Sprite hoverSprite, notPlaceableSprite;
 
     public TiledMapActor (TiledMap tiledMap, TiledMapTileLayer tiledLayer, TiledMapTileLayer.Cell cell) {
 
         this.tiledMap = tiledMap;
         this.tiledLayer = tiledLayer;
         this.cell = cell;
+
+        hoverImage = new Texture("maps/tile_hover.png");
+        hoverSprite = new Sprite(hoverImage, hoverImage.getWidth(), hoverImage.getHeight());
+
+        notPlaceableImage = new Texture("maps/tile_hover_x.png");
+        notPlaceableSprite = new Sprite(notPlaceableImage, notPlaceableImage.getWidth(),
+                notPlaceableImage.getHeight());
+
+
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
-        hoverImg.draw(batch);
+        if(highlighted) {
+
+            if(cell == null)
+                placeable = true;
+
+            hoverSprite.setOrigin(0,0);
+            hoverSprite.setScale(Consts.UNIT_SCALE);
+            hoverSprite.translate(-1/2f, -1/2f);
+            hoverSprite.setX(this.screenX);
+            hoverSprite.setY(this.screenY);
+
+            notPlaceableSprite.setOrigin(0,0);
+            notPlaceableSprite.setScale(Consts.UNIT_SCALE);
+            notPlaceableSprite.translate(-1/2f, -1/2f);
+            notPlaceableSprite.setX(this.screenX);
+            notPlaceableSprite.setY(this.screenY);
+
+            if(placeable)
+                hoverSprite.draw(batch, parentAlpha);
+            else
+                notPlaceableSprite.draw(batch, parentAlpha);
+        }
+    }
+
+    public void setHoverSprite(Sprite hoverSprite) {
+
+        this.hoverSprite = hoverSprite;
+    }
+
+    public void toggleHighlight() {
+
+        highlighted = !highlighted;
+    }
+
+    public void setScreenX(float x) {
+
+        this.screenX = x;
+    }
+
+    public void setScreenY(float y) {
+
+        this.screenY = y;
+    }
+
+    public void makePlaceable(boolean placeable) {
+
+        this.placeable = placeable;
+    }
+
+    public boolean isPlaceable() {
+
+        return this.placeable;
+    }
+
+    public void setTileId(int id) {
+
+        this.tileId = id;
+    }
+
+    public int getTileId() {
+
+        return this.tileId;
     }
 
     public TiledMap getTiledMap() {

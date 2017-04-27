@@ -1,6 +1,7 @@
 package com.project.alien.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -39,7 +40,21 @@ public class GameScreen extends AbstractScreen {
     public GameScreen() {
         super();
         HUDConstructor();
-        level1 = new TiledLevel("maps/level1.tmx");
+        level1 = new TiledLevel("maps/level_1.tmx");
+    }
+
+    @Override
+    public void show() {
+        /* Add all stages that process input here*/
+
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+
+        // HUD input
+        inputMultiplexer.addProcessor(this);
+        // Game map/tiles input
+        inputMultiplexer.addProcessor(level1.getStage());
+
+        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     @Override
@@ -49,8 +64,8 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 1, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        //Gdx.gl.glClearColor(0, 1, 0, 1);
+        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         level1.render();
 

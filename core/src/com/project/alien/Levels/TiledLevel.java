@@ -41,6 +41,7 @@ public class TiledLevel {
         // TiledMapStage adds the actors that listen for input events
         levelStage = new TiledMapStage(tiledLevel);
         levelStage.getViewport().setCamera(camera);
+        levelStage.setDebugUnderMouse(true);
 
         Gdx.input.setInputProcessor(levelStage);
     }
@@ -57,6 +58,11 @@ public class TiledLevel {
         tiledLevelRenderer.render();
         levelStage.act();
         levelStage.draw();
+    }
+
+    public Stage getStage() {
+
+        return this.levelStage;
     }
 
 }
